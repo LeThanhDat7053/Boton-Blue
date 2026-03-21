@@ -1,0 +1,12 @@
+{
+    "name": "truongqv12/popup-chat",
+    "type": "library",
+    "autoload": {
+        "psr-4": {
+            "Botble\\PopupChat\\": "src/"
+        },
+        "files": [
+            "helpers/helpers.php"
+        ]
+    }
+}

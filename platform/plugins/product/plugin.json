@@ -1,0 +1,10 @@
+{
+    "id": "botble/product",
+    "name": "Product",
+    "namespace": "Botble\\Product\\",
+    "provider": "Botble\\Product\\Providers\\ProductServiceProvider",
+    "author": "Botble Technologies",
+    "url": "https://botble.com",
+    "version": "1.0",
+    "description": "Product/Service package management plugin for hotel"
+}
