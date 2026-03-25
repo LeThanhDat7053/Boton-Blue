@@ -26,6 +26,7 @@ class Page extends BaseModel
     protected $fillable = [
         'name',
         'content',
+        'content_mode',
         'custom_html',
         'image',
         'template',

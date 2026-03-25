@@ -492,6 +492,10 @@
     margin-inline-start: 0;
 }
 
+.second-menu .main-menu {
+    text-align: right;
+}
+
 .second-menu .main-menu ul li a::before {
     content: none;
 }

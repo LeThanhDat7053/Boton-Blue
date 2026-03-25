@@ -12,7 +12,9 @@ use Botble\Blog\Models\Post;
 use Botble\Blog\Services\StoreCategoryService;
 use Botble\Blog\Services\StoreTagService;
 use Botble\Blog\Tables\PostTable;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class PostController extends BaseController
 {
@@ -50,6 +52,12 @@ class PostController extends BaseController
 
         $categoryService->execute($request, $post);
 
+        if ($request->filled('created_at')) {
+            DB::table('posts')
+                ->where('id', $post->getKey())
+                ->update(['created_at' => Carbon::parse($request->input('created_at'))]);
+        }
+
         return $this
             ->httpResponse()
             ->setPreviousRoute('posts.index')
@@ -82,6 +90,12 @@ class PostController extends BaseController
         $tagService->execute($request, $post);
 
         $categoryService->execute($request, $post);
+
+        if ($request->filled('created_at')) {
+            DB::table('posts')
+                ->where('id', $post->getKey())
+                ->update(['created_at' => Carbon::parse($request->input('created_at'))]);
+        }
 
         return $this
             ->httpResponse()

@@ -23,7 +23,8 @@ class PostRequest extends Request
             'categories.*' => ['sometimes', Rule::exists((new Category())->getTable(), 'id')],
             'status' => Rule::in(BaseStatusEnum::values()),
             'is_featured' => [new OnOffRule()],
-            'image' => ['nullable', 'string', new MediaImageRule()],
+            'image' => ['nullable', 'string'],
+            'created_at' => ['nullable', 'date'],
         ];
 
         $postFormats = PostFormat::getPostFormats(true);

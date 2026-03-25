@@ -8,9 +8,11 @@ use Botble\Base\Forms\FieldOptions\SelectFieldOption;
 use Botble\Base\Forms\FieldOptions\TextFieldOption;
 use Botble\Base\Forms\Fields\EditorField;
 use Botble\Base\Forms\Fields\MediaImageField;
+use Botble\Base\Forms\Fields\OnOffField;
 use Botble\Base\Forms\Fields\SelectField;
 use Botble\Base\Forms\Fields\TextareaField;
 use Botble\Base\Forms\Fields\TextField;
+use Botble\Blog\Forms\PostForm;
 use Botble\Hotel\Forms\AmenityForm;
 use Botble\Media\Facades\RvMedia;
 use Botble\Page\Forms\PageForm;
@@ -187,4 +189,55 @@ app()->booted(function (): void {
             ->addAfter('instagram', 'behance', TextField::class, TextFieldOption::make()->label(__('Behance'))->metadata()->placeholder('https://www.behance.net')->toArray())
             ->addAfter('behance', 'linkedin', TextField::class, TextFieldOption::make()->label(__('Linkedin'))->metadata()->placeholder('https://www.linkedin.com')->toArray());
     });
+
+    // Set flag for blog listing page to hide sidebar and show hero grid
+    if (defined('PAGE_FILTER_FRONT_PAGE_CONTENT') && function_exists('get_blog_page_id')) {
+        add_filter(PAGE_FILTER_FRONT_PAGE_CONTENT, function (?string $content, $page) {
+            if ($page->getKey() == get_blog_page_id()) {
+                \Theme::set('isBlogListingPage', true);
+            }
+            return $content;
+        }, 1, 2);
+    }
+
+    // Add "Ghim bài viết" toggle to Post form
+    if (is_plugin_active('blog')) {
+        PostForm::extend(function (PostForm $form): void {
+            try {
+                $model = $form->getModel();
+                $isPinned = $model && $model->getKey()
+                    ? (bool) \Botble\Blog\Models\Post::query()->where('id', $model->getKey())->value('is_pinned')
+                    : false;
+
+                $form->addAfter(
+                    'is_featured',
+                    'is_pinned',
+                    OnOffField::class,
+                    TextFieldOption::make()
+                        ->label(__('Ghim bài viết (hiển thị ở trung tâm trang Blog)'))
+                        ->defaultValue($isPinned)
+                        ->toArray()
+                );
+            } catch (\Exception $e) {
+                // Column is_pinned not yet added to DB
+            }
+        }, 99);
+
+        // Auto-unpin other posts when saving a pinned post
+        \Botble\Blog\Models\Post::saving(function (\Botble\Blog\Models\Post $post) {
+            try {
+                if (request()->has('is_pinned') && request()->input('is_pinned')) {
+                    \Botble\Blog\Models\Post::query()
+                        ->where('id', '!=', $post->getKey())
+                        ->where('is_pinned', 1)
+                        ->update(['is_pinned' => 0]);
+                    $post->is_pinned = 1;
+                } else if (request()->has('is_pinned')) {
+                    $post->is_pinned = 0;
+                }
+            } catch (\Exception $e) {
+                // Column is_pinned not yet added to DB
+            }
+        });
+    }
 });

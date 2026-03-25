@@ -60,6 +60,8 @@ return [
             $theme->asset()->usePath()->add('default-css', 'plugins/default.css');
             $theme->asset()->usePath()->add('responsive-css', 'plugins/responsive.css');
             $theme->asset()->usePath()->add('datepicker-css', 'plugins/datepicker/bootstrap-datepicker.css');
+            $theme->asset()->usePath()->add('booking-mask-css', 'css/booking-mask.css');
+            $theme->asset()->usePath()->add('popup-banner-css', 'css/popup-banner.css');
 
             $theme->asset()->container('header')->usePath()->add('jquery', 'plugins/jquery.min.js');
             $theme->asset()->container('footer')->usePath()->add('imagesloaded', 'plugins/imagesloaded.min.js');
@@ -79,6 +81,7 @@ return [
             $theme->asset()->container('footer')->usePath()->add('main', 'js/main.js');
             $theme->asset()->container('footer')->usePath()->add('script', 'js/script.js', ['datepicker-js', 'bootstrap-datepicker-locale']);
             $theme->asset()->container('footer')->usePath()->add('external-booking', 'js/external-booking.js', ['main']);
+            $theme->asset()->container('footer')->usePath()->add('booking-mask-js', 'js/booking-mask.js', ['datepicker-js']);
 
             if (function_exists('shortcode')) {
                 $theme->composer(['page', 'post', 'teams.team', 'hotel.room', 'hotel.service'], function (View $view): void {

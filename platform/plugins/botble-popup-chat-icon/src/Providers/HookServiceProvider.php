@@ -71,6 +71,30 @@ class HookServiceProvider extends ServiceProvider
                             ],
                         ],
                     ],
+                    [
+                        'id' => 'chat_btn_telegram',
+                        'type' => 'text',
+                        'label' => __('Link Telegram'),
+                        'attributes' => [
+                            'name' => 'chat_btn_telegram',
+                            'value' => null,
+                            'options' => [
+                                'class' => 'form-control',
+                            ],
+                        ],
+                    ],
+                    [
+                        'id' => 'chat_btn_whatsapp',
+                        'type' => 'text',
+                        'label' => __('Link WhatsApp'),
+                        'attributes' => [
+                            'name' => 'chat_btn_whatsapp',
+                            'value' => null,
+                            'options' => [
+                                'class' => 'form-control',
+                            ],
+                        ],
+                    ],
                 ],
             ]);
     }

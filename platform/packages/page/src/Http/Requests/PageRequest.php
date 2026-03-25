@@ -16,6 +16,8 @@ class PageRequest extends Request
             'name' => ['required', 'string', 'max:120'],
             'description' => ['nullable', 'string', 'max:400'],
             'content' => ['nullable', 'string'],
+            'content_mode' => ['nullable', 'string', 'in:blocks,html'],
+            'custom_html' => ['nullable', 'string'],
             'template' => [Rule::in(array_keys(Template::getPageTemplates()))],
             'status' => [Rule::in(BaseStatusEnum::values())],
             'image' => ['nullable', 'string', new MediaImageRule()],

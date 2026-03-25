@@ -1,4 +1,4 @@
-.services-sidebar .sidebar-widget .btn.ss-btn {
+﻿.services-sidebar .sidebar-widget .btn.ss-btn {
     display: inline-flex !important;
     flex-direction: row !important;
     align-items: center !important;
@@ -26,15 +26,7 @@
     }
 }
 
-.admin-bar {
-    .menu-area {
-    }
-}
 
-.admin-bar {
-    .second-header {
-    }
-}
 
 .admin-bar {
     .sticky-menu {
@@ -936,6 +928,7 @@ button.btn-custom {
 .room-item-custom-truncate {
     display: -webkit-box;
     -webkit-line-clamp: 2;
+    line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
 }
@@ -943,6 +936,7 @@ button.btn-custom {
 .blog-item-custom-truncate {
     display: -webkit-box;
     -webkit-line-clamp: 2;
+    line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
 }

@@ -14,11 +14,15 @@
 
     <?php endif; ?>
 
-    <?php echo Theme::content(); ?>
+    <section class="pt-40 pb-40">
+        <div class="container">
+            <?php echo Theme::content(); ?>
 
+        </div>
+    </section>
 
     <?php echo Theme::partial('footer'); ?>
 
 <?php $__env->stopSection(); ?>
 
-<?php echo $__env->make(Theme::getThemeNamespace('layouts.base'), array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH C:\laragon\www\main\platform\themes/riorelax/layouts/full-width.blade.php ENDPATH**/ ?>
+<?php echo $__env->make(Theme::getThemeNamespace('layouts.base'), array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH C:\laragon\www\main\platform\themes/riorelax/layouts/default.blade.php ENDPATH**/ ?>

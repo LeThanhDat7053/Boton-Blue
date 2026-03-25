@@ -11,8 +11,8 @@
                         </div>
                     @endif
                 </div>
-                <div @class(['col-4 col-md-8 ', 'col-lg-8 col-xl-8' => ! $fullWidth, 'col-lg-9 col-xl-9' => $fullWidth])>
-                    <div class="main-menu text-center">
+                <div @class(['col-4 col-md-8 ', 'col-lg-10 col-xl-10' => ! $fullWidth, 'col-lg-9 col-xl-9' => $fullWidth])>
+                    <div class="main-menu text-end">
                         <nav id="mobile-menu">
                             {!! Menu::renderMenuLocation('main-menu', [
                                 'options' => ['class' => 'main-menu'],

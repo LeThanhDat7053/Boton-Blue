@@ -18,6 +18,26 @@
             --heading-font: '{{ theme_option('heading_font', 'Jost') }}', sans-serif;
             --primary-font: '{{ theme_option('primary_font', 'Roboto') }}', sans-serif;
         }
+
+        /* Restore list styles inside CKEditor content globally */
+        .ck-content ul {
+            list-style: disc;
+            padding-left: 20px;
+            margin-bottom: 15px;
+        }
+        .ck-content ol {
+            list-style: decimal;
+            padding-left: 20px;
+            margin-bottom: 15px;
+        }
+        .ck-content ul li,
+        .ck-content ol li {
+            list-style: inherit;
+            margin-bottom: 5px;
+            line-height: 1.6;
+        }
+        .ck-content ul ul { list-style: circle; }
+        .ck-content ul ul ul { list-style: square; }
     </style>
     {!! Theme::header() !!}
     {!! Theme::partial('preloader') !!}
@@ -26,6 +46,9 @@
 {!! apply_filters(THEME_FRONT_BODY, null) !!}
 
 @yield('main')
+
+{!! Theme::partial('booking-mask') !!}
+{!! Theme::partial('popup-banner') !!}
 
 {!! Theme::footer() !!}
 @if (session()->has('success_msg') || session()->has('error_msg') || (isset($errors) && $errors->count() > 0) || isset($error_msg))

@@ -11,6 +11,8 @@ use Botble\Base\Forms\FieldOptions\RadioFieldOption;
 use Botble\Base\Forms\FieldOptions\SelectFieldOption;
 use Botble\Base\Forms\FieldOptions\StatusFieldOption;
 use Botble\Base\Forms\FieldOptions\TagFieldOption;
+use Botble\Base\Forms\FieldOptions\TextFieldOption;
+use Botble\Base\Forms\Fields\DatetimeField;
 use Botble\Base\Forms\Fields\EditorField;
 use Botble\Base\Forms\Fields\MediaImageField;
 use Botble\Base\Forms\Fields\OnOffField;
@@ -42,6 +44,13 @@ class PostForm extends FormAbstract
             )
             ->add('content', EditorField::class, ContentFieldOption::make()->allowedShortcodes())
             ->add('status', SelectField::class, StatusFieldOption::make())
+            ->add(
+                'created_at',
+                DatetimeField::class,
+                TextFieldOption::make()
+                    ->label(trans('core/base::tables.created_at'))
+                    ->value(($this->getModel()->created_at ?? now())->format('Y-m-d\TH:i'))
+            )
             ->when(get_post_formats(true), function (PostForm $form, array $postFormats): void {
                 if (count($postFormats) > 1) {
                     $choices = [];

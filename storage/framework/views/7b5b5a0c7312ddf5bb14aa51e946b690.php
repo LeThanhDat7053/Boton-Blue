@@ -64,6 +64,34 @@
             </div>
         <?php endif; ?>
 
+        <?php if($telegram = theme_option('chat_btn_telegram')): ?>
+            <div id="telegram-vr" class="button-contact">
+                <a target="_blank" href="<?php echo e($telegram); ?>">
+                    <div class="phone-vr">
+                        <div class="phone-vr-circle-fill"></div>
+                        <div class="phone-vr-img-circle">
+                            <img data-bb-lazy="true" width="200" height="200" loading="lazy"
+                                 src="/vendor/core/plugins/popup-chat/images/telegram.svg"
+                                 alt="Telegram">
+                        </div>
+                    </div>
+                </a>
+            </div>
+        <?php endif; ?>
+        <?php if($whatsapp = theme_option('chat_btn_whatsapp')): ?>
+            <div id="whatsapp-vr" class="button-contact">
+                <a target="_blank" href="<?php echo e($whatsapp); ?>">
+                    <div class="phone-vr">
+                        <div class="phone-vr-circle-fill"></div>
+                        <div class="phone-vr-img-circle">
+                            <img data-bb-lazy="true" width="200" height="200" loading="lazy"
+                                 src="/vendor/core/plugins/popup-chat/images/whatsapp.svg"
+                                 alt="WhatsApp">
+                        </div>
+                    </div>
+                </a>
+            </div>
+        <?php endif; ?>
         <?php if($hotline = theme_option('hotline')): ?>
             <div id="phone-vr" class="button-contact">
                 <a href="tel:<?php echo e($hotline); ?>">
@@ -75,11 +103,6 @@
                                  alt="<?php echo e($hotline); ?>">
                         </div>
                     </div>
-                </a>
-            </div>
-            <div class="phone-bar phone-bar-n">
-                <a href="tel:<?php echo e($hotline); ?>">
-                    <span class="text-phone"><?php echo e($hotline); ?></span>
                 </a>
             </div>
         <?php endif; ?>

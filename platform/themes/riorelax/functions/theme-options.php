@@ -458,5 +458,38 @@ app()->booted(function (): void {
                     'class' => 'form-control',
                 ],
             ],
+        ])
+        ->setSection([
+            'title' => __('Popup Banner'),
+            'desc' => __('Popup banner configuration'),
+            'id' => 'opt-text-subsection-popup-banner',
+            'subsection' => true,
+            'icon' => 'ti ti-photo',
+            'fields' => [
+                [
+                    'id' => 'popup_banner_enabled',
+                    'type' => 'customSelect',
+                    'label' => __('Enable popup banner?'),
+                    'attributes' => [
+                        'name' => 'popup_banner_enabled',
+                        'list' => [
+                            0 => trans('core/base::base.no'),
+                            1 => trans('core/base::base.yes'),
+                        ],
+                        'value' => 0,
+                        'options' => [
+                            'class' => 'form-control',
+                        ],
+                    ],
+                ],
+                [
+                    'id' => 'popup_banner_image',
+                    'type' => 'mediaImage',
+                    'label' => __('Banner image'),
+                    'attributes' => [
+                        'name' => 'popup_banner_image',
+                    ],
+                ],
+            ],
         ]);
 });

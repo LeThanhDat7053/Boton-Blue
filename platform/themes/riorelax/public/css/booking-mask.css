@@ -1,0 +1,389 @@
+/* ============================================================
+   Booking Mask — Sticky right-side "Book Now" widget
+   ============================================================ */
+
+#booking-mask-wrapper {
+    position: fixed;
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%);
+    z-index: 9999;
+    font-family: var(--primary-font, 'Roboto', sans-serif);
+}
+
+/* ---- Toggle button (visible when panel closed) ---- */
+.booking-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #0e4d97;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    padding: 14px 10px;
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    letter-spacing: 2px;
+    font-size: 14px;
+    font-weight: 700;
+    text-transform: uppercase;
+    border-radius: 8px 0 0 8px;
+    transition: background 0.3s;
+    box-shadow: -2px 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.booking-button:hover {
+    background: #0a3a75;
+    color: #fff;
+}
+
+/* ---- Panel container ---- */
+#booking-mask {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+/* Closed state */
+#booking-mask.closed .booking-body {
+    width: 0;
+    padding: 0;
+    overflow: hidden;
+    opacity: 0;
+    pointer-events: none;
+    visibility: hidden;
+}
+
+#booking-mask.closed .booking-button {
+    display: flex;
+}
+
+/* Open state */
+#booking-mask.open .booking-body {
+    width: 320px;
+    padding: 20px;
+    opacity: 1;
+    pointer-events: auto;
+    visibility: visible;
+    overflow-y: auto;
+    max-height: calc(100vh - 120px);
+}
+
+#booking-mask.open .booking-button {
+    display: none;
+}
+
+/* ---- Booking body ---- */
+.booking-body {
+    position: relative;
+    background: #0e4d97;
+    color: #fff;
+    overflow: hidden;
+    transition: width 0.35s ease, padding 0.35s ease, opacity 0.25s ease;
+    border-radius: 0 0 0 12px;
+    box-shadow: -4px 4px 16px rgba(0, 0, 0, 0.2);
+}
+
+/* ---- Title ---- */
+.bm-title {
+    text-align: center;
+    color: #fff;
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    margin: 0 0 16px;
+    text-transform: uppercase;
+}
+
+/* ---- Close button ---- */
+.booking-close {
+    position: absolute;
+    top: 6px;
+    right: 10px;
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 24px;
+    cursor: pointer;
+    line-height: 1;
+    opacity: 0.7;
+    transition: opacity 0.2s;
+}
+
+.booking-close:hover {
+    opacity: 1;
+}
+
+/* ---- Date fields row ---- */
+.bm-dates-row {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 12px;
+}
+
+.bm-date-field {
+    flex: 1;
+    padding: 8px 10px;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: 4px;
+    background: rgba(255, 255, 255, 0.08);
+    cursor: pointer;
+    transition: border-color 0.2s, background 0.2s;
+}
+
+.bm-date-field.active {
+    border-color: #fff;
+    background: rgba(255, 255, 255, 0.18);
+}
+
+.bm-date-field label {
+    display: block;
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: rgba(255, 255, 255, 0.7);
+    margin-bottom: 2px;
+    cursor: pointer;
+}
+
+.bm-date-field input {
+    width: 100%;
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 0;
+    outline: none;
+    cursor: pointer;
+}
+
+.bm-date-field input::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+/* ---- Inline calendar ---- */
+#bm-calendar {
+    margin-bottom: 14px;
+}
+
+#bm-calendar .datepicker {
+    width: 100% !important;
+    background: transparent !important;
+    border: none !important;
+    padding: 0 !important;
+    border-radius: 0 !important;
+}
+
+#bm-calendar .datepicker table {
+    width: 100%;
+}
+
+#bm-calendar .datepicker thead tr th {
+    color: #fff !important;
+    font-size: 12px;
+}
+
+#bm-calendar .datepicker thead tr th.prev,
+#bm-calendar .datepicker thead tr th.next,
+#bm-calendar .datepicker thead tr th.datepicker-switch {
+    color: #fff !important;
+    background: transparent !important;
+}
+
+#bm-calendar .datepicker thead tr th.prev:hover,
+#bm-calendar .datepicker thead tr th.next:hover,
+#bm-calendar .datepicker thead tr th.datepicker-switch:hover {
+    background: rgba(255, 255, 255, 0.15) !important;
+    color: #fff !important;
+}
+
+#bm-calendar .datepicker thead tr th.dow {
+    color: rgba(255, 255, 255, 0.6) !important;
+    font-size: 11px;
+    font-weight: 600;
+}
+
+#bm-calendar .datepicker tbody td {
+    color: #fff !important;
+    background: transparent !important;
+    border-radius: 4px;
+}
+
+#bm-calendar .datepicker tbody td:hover {
+    background: rgba(255, 255, 255, 0.2) !important;
+    color: #fff !important;
+}
+
+#bm-calendar .datepicker tbody td.active,
+#bm-calendar .datepicker tbody td.active:hover {
+    background: #fff !important;
+    color: #0e4d97 !important;
+    font-weight: 700;
+}
+
+#bm-calendar .datepicker tbody td.today {
+    background: rgba(255, 255, 255, 0.15) !important;
+    color: #fff !important;
+}
+
+#bm-calendar .datepicker tbody td.today.active {
+    background: #fff !important;
+    color: #0e4d97 !important;
+}
+
+#bm-calendar .datepicker tbody td.disabled,
+#bm-calendar .datepicker tbody td.disabled:hover {
+    color: rgba(255, 255, 255, 0.25) !important;
+    background: transparent !important;
+}
+
+#bm-calendar .datepicker tbody td.old,
+#bm-calendar .datepicker tbody td.new {
+    color: rgba(255, 255, 255, 0.3) !important;
+}
+
+/* ---- Guests row ---- */
+.bm-guests-row {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 14px;
+}
+
+.bm-guest-field {
+    flex: 1;
+}
+
+.bm-guest-field label {
+    display: block;
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: rgba(255, 255, 255, 0.7);
+    margin-bottom: 4px;
+}
+
+.bm-guest-field select {
+    width: 100%;
+    padding: 7px 10px;
+    font-size: 14px;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    border-radius: 4px;
+    background: #0a3f80 !important;
+    color: #fff !important;
+    outline: none;
+    cursor: pointer;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%23ffffff'/%3E%3C/svg%3E") !important;
+    background-repeat: no-repeat !important;
+    background-position: right 10px center !important;
+    padding-right: 28px;
+}
+
+.bm-guest-field select option {
+    background: #0a3f80;
+    color: #fff;
+}
+
+/* ---- Submit button ---- */
+.booking-submit {
+    width: 100%;
+    padding: 12px;
+    background: #052d5c;
+    color: #fff;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: background 0.3s, border-color 0.3s;
+}
+
+.booking-submit:hover {
+    background: #021530;
+    border-color: rgba(255, 255, 255, 0.5);
+    color: #fff;
+}
+
+/* ---- Responsive ---- */
+
+/* Medium desktop / large tablet (768px – 1199px) */
+@media (min-width: 768px) and (max-width: 1199px) {
+    #booking-mask.open .booking-body {
+        width: 280px;
+        padding: 14px;
+        max-height: calc(100vh - 100px);
+    }
+
+    .bm-title {
+        font-size: 13px;
+        margin-bottom: 10px;
+    }
+
+    #bm-calendar .datepicker table td,
+    #bm-calendar .datepicker table th {
+        padding: 2px 1px !important;
+        font-size: 11px !important;
+    }
+
+    .bm-dates-row {
+        gap: 5px;
+    }
+
+    .bm-date-field {
+        padding: 6px 8px;
+    }
+
+    .bm-date-field input {
+        font-size: 12px;
+    }
+
+    .bm-guests-row {
+        gap: 5px;
+    }
+
+    .bm-guest-field select {
+        padding: 5px 8px;
+        font-size: 13px;
+    }
+
+    .booking-submit {
+        padding: 10px;
+        font-size: 13px;
+    }
+
+    .booking-button {
+        font-size: 12px;
+        padding: 12px 8px;
+    }
+}
+
+/* Hide on mobile */
+@media (max-width: 767px) {
+    #booking-mask-wrapper.no-mobile {
+        display: none;
+    }
+}
+
+/* ---- Move chat popup icons to LEFT side ---- */
+#button-contact-vr {
+    right: auto !important;
+    left: 20px !important;
+}
+
+/* ---- Hide datepicker dropdown popups triggered by hidden inputs ---- */
+#bm-start-date + .datepicker,
+#bm-end-date + .datepicker,
+body > .datepicker.datepicker-dropdown {
+    /* only hide dropdowns from the hidden inputs, not the inline calendar */
+}
+
+#booking-form > .bm-dates-row .datepicker-dropdown {
+    display: none !important;
+}

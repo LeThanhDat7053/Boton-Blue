@@ -1,15 +1,11 @@
-<?php if (! $__env->hasRenderedOnce('0bacef7d-6111-4377-afaa-21a4ca39e266')): $__env->markAsRenderedOnce('0bacef7d-6111-4377-afaa-21a4ca39e266'); ?>
-    <div class="nav-item d-none d-md-flex me-2">
-        <a
-            class="px-0 nav-link"
-            data-bs-toggle="offcanvas"
-            href="#notification-sidebar"
-            role="button"
-            aria-controls="notification-sidebar"
-        >
-            <?php if (isset($component)) { $__componentOriginal73995948b3bd877b76251b40caf28170 = $component; } ?>
+<span
+    data-action="<?php echo e($action->getName()); ?>"
+    data-href="<?php echo e($action->getUrl()); ?>"
+>
+    <?php if($icon = $action->getIcon()): ?>
+        <?php if (isset($component)) { $__componentOriginal73995948b3bd877b76251b40caf28170 = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginal73995948b3bd877b76251b40caf28170 = $attributes; } ?>
-<?php $component = Botble\Icon\View\Components\Icon::resolve(['name' => 'ti ti-bell'] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component = Botble\Icon\View\Components\Icon::resolve(['name' => $icon] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
 <?php $component->withName('core::icon'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
@@ -27,9 +23,9 @@
 <?php $component = $__componentOriginal73995948b3bd877b76251b40caf28170; ?>
 <?php unset($__componentOriginal73995948b3bd877b76251b40caf28170); ?>
 <?php endif; ?>
-            <span
-                class="badge bg-blue text-blue-fg badge-pill notification-count"><?php echo e(number_format($countNotificationUnread)); ?></span>
-        </a>
-    </div>
-<?php endif; ?>
-<?php /**PATH C:\laragon\www\main\platform\core\base\/resources/views/notification/nav-item.blade.php ENDPATH**/ ?>
+    <?php endif; ?>
+
+    <?php echo e($action->getLabel()); ?>
+
+</span>
+<?php /**PATH C:\laragon\www\main\platform\core\table\/resources/views/includes/header-action.blade.php ENDPATH**/ ?>

@@ -18,6 +18,26 @@
             --heading-font: '<?php echo e(theme_option('heading_font', 'Jost')); ?>', sans-serif;
             --primary-font: '<?php echo e(theme_option('primary_font', 'Roboto')); ?>', sans-serif;
         }
+
+        /* Restore list styles inside CKEditor content globally */
+        .ck-content ul {
+            list-style: disc;
+            padding-left: 20px;
+            margin-bottom: 15px;
+        }
+        .ck-content ol {
+            list-style: decimal;
+            padding-left: 20px;
+            margin-bottom: 15px;
+        }
+        .ck-content ul li,
+        .ck-content ol li {
+            list-style: inherit;
+            margin-bottom: 5px;
+            line-height: 1.6;
+        }
+        .ck-content ul ul { list-style: circle; }
+        .ck-content ul ul ul { list-style: square; }
     </style>
     <?php echo Theme::header(); ?>
 
@@ -29,6 +49,11 @@
 
 
 <?php echo $__env->yieldContent('main'); ?>
+
+<?php echo Theme::partial('booking-mask'); ?>
+
+<?php echo Theme::partial('popup-banner'); ?>
+
 
 <?php echo Theme::footer(); ?>
 

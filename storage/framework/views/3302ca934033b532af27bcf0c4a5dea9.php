@@ -2,9 +2,11 @@
 
 $__newAttributes = [];
 $__propNames = \Illuminate\View\ComponentAttributeBag::extractPropNames(([
-    'title' => null,
-    'subtitle' => null,
-    'icon' => 'ti ti-ghost',
+    'label' => null,
+    'color' => 'primary',
+    'lite' => false,
+    'outline' => false,
+    'icon' => null,
 ]));
 
 foreach ($attributes->all() as $__key => $__value) {
@@ -21,9 +23,11 @@ unset($__propNames);
 unset($__newAttributes);
 
 foreach (array_filter(([
-    'title' => null,
-    'subtitle' => null,
-    'icon' => 'ti ti-ghost',
+    'label' => null,
+    'color' => 'primary',
+    'lite' => false,
+    'outline' => false,
+    'icon' => null,
 ]), 'is_string', ARRAY_FILTER_USE_KEY) as $__key => $__value) {
     $$__key = $$__key ?? $__value;
 }
@@ -36,10 +40,19 @@ foreach ($attributes->all() as $__key => $__value) {
 
 unset($__defined_vars, $__key, $__value); ?>
 
-<div <?php echo e($attributes->class('empty')); ?>>
+<?php
+    $classes = Arr::toCssClasses([
+        'badge',
+        "bg-$color text-$color-fg" => !$lite && !$outline,
+        "bg-$color-lt" => $lite,
+        "badge-outline text-$color" => $outline,
+        'd-inline-flex align-items-center gap-1' => $icon,
+    ]);
+?>
+
+<span <?php echo e($attributes->class($classes)); ?>>
     <?php if($icon): ?>
-        <div class="empty-icon">
-            <?php if (isset($component)) { $__componentOriginal73995948b3bd877b76251b40caf28170 = $component; } ?>
+        <?php if (isset($component)) { $__componentOriginal73995948b3bd877b76251b40caf28170 = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginal73995948b3bd877b76251b40caf28170 = $attributes; } ?>
 <?php $component = Botble\Icon\View\Components\Icon::resolve(['name' => $icon] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
 <?php $component->withName('core::icon'); ?>
@@ -59,25 +72,9 @@ unset($__defined_vars, $__key, $__value); ?>
 <?php $component = $__componentOriginal73995948b3bd877b76251b40caf28170; ?>
 <?php unset($__componentOriginal73995948b3bd877b76251b40caf28170); ?>
 <?php endif; ?>
-        </div>
     <?php endif; ?>
-    <?php if($title): ?>
-        <p class="empty-title">
-            <?php echo $title; ?>
 
-        </p>
-    <?php endif; ?>
-    <?php if($subtitle): ?>
-        <p class="empty-subtitle text-muted">
-            <?php echo $subtitle; ?>
+    <?php echo e($label ?? $slot); ?>
 
-        </p>
-    <?php endif; ?>
-    <?php if(isset($action)): ?>
-        <div class="empty-action">
-            <?php echo $action; ?>
-
-        </div>
-    <?php endif; ?>
-</div>
-<?php /**PATH C:\laragon\www\main\platform\core\base\/resources/views/components/empty-state.blade.php ENDPATH**/ ?>
+</span>
+<?php /**PATH C:\laragon\www\main\platform\core\base\/resources/views/components/badge.blade.php ENDPATH**/ ?>

@@ -2,6 +2,7 @@
 
 namespace Botble\Product\Http\Controllers;
 
+use Botble\Base\Facades\EmailHandler;
 use Botble\Base\Http\Responses\BaseHttpResponse;
 use Botble\Product\Http\Requests\OrderRequest;
 use Botble\Product\Models\Product;
@@ -13,7 +14,6 @@ use Botble\Slug\Facades\SlugHelper;
 use Botble\Theme\Facades\Theme;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
-use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 
 class PublicProductController extends Controller
@@ -96,22 +96,20 @@ class PublicProductController extends Controller
 
         $product->increment('total_sold', $quantity);
 
-        // Send email notification
-        $salesEmail = config('plugins.product.general.sales_email');
-        if ($salesEmail) {
-            try {
-                Mail::send('plugins/product::emails.order-notification', [
-                    'order' => $order,
-                    'product' => $product,
-                    'quantity' => $quantity,
-                ], function ($message) use ($salesEmail, $order) {
-                    $message->to($salesEmail)
-                        ->subject('Đơn hàng mới #' . $order->order_number);
-                });
-            } catch (\Throwable $e) {
-                \Log::error('Failed to send product order email: ' . $e->getMessage());
-            }
-        }
+        // Send email notification via Botble email template system
+        EmailHandler::setModule(PRODUCT_MODULE_SCREEN_NAME)
+            ->setVariableValues([
+                'order_number' => $order->order_number,
+                'customer_name' => $order->customer_name,
+                'customer_email' => $order->customer_email,
+                'customer_phone' => $order->customer_phone,
+                'product_name' => $product->name,
+                'quantity' => $quantity,
+                'total_amount' => number_format($order->total_amount, 0, ',', '.') . ' VND',
+                'customer_note' => $order->customer_note ?: '',
+                'order_date' => $order->created_at->format('d/m/Y H:i'),
+            ])
+            ->sendUsingTemplate('order-notice-to-admin');
 
         return $response
             ->setMessage(trans('plugins/product::product.order_success'))

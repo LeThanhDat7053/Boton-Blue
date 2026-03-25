@@ -1,9 +1,9 @@
-@php
+<?php
     Theme::set('pageTitle', $post->name);
     $recentPosts = get_recent_posts(5);
-@endphp
+?>
 
-@once
+<?php if (! $__env->hasRenderedOnce('9293b0e4-d529-4f93-b935-96f970db5ead')): $__env->markAsRenderedOnce('9293b0e4-d529-4f93-b935-96f970db5ead'); ?>
 <style>
     /* H1 inside blog content - green left border style */
     .ck-content h1 {
@@ -99,7 +99,7 @@
         color: var(--primary-color);
     }
 </style>
-@endonce
+<?php endif; ?>
 
 <section class="inner-blog b-details-p pt-80 pb-40">
     <div class="container">
@@ -107,93 +107,96 @@
             <div class="col-lg-8">
                 <div class="blog-details-wrap">
                     <div class="details__content pb-30">
-                        <h2>{{ $post->name }}</h2>
+                        <h2><?php echo e($post->name); ?></h2>
                         <div class="meta-info">
                             <ul>
-                                <li><i class="fal fa-eye"></i>{{ number_format($post->views) }}</li>
-                                <li><i class="fal fa-calendar-alt"></i>{{ Theme::formatDate($post->created_at) }}</li>
+                                <li><i class="fal fa-eye"></i><?php echo e(number_format($post->views)); ?></li>
+                                <li><i class="fal fa-calendar-alt"></i><?php echo e(Theme::formatDate($post->created_at)); ?></li>
                             </ul>
                         </div>
                         <div class="ck-content">
-                            {!! $post->content !!}
+                            <?php echo $post->content; ?>
+
                         </div>
-                        @if (function_exists('gallery_meta_data'))
-                            @php($galleryItems = gallery_meta_data($post))
-                            @if (!empty($galleryItems))
-                                {!! Theme::partial('media-gallery', ['items' => $galleryItems, 'id' => 'post-gallery']) !!}
-                            @endif
-                        @endif
-                        @if ($post->tags->isNotEmpty())
+                        <?php if(function_exists('gallery_meta_data')): ?>
+                            <?php ($galleryItems = gallery_meta_data($post)); ?>
+                            <?php if(!empty($galleryItems)): ?>
+                                <?php echo Theme::partial('media-gallery', ['items' => $galleryItems, 'id' => 'post-gallery']); ?>
+
+                            <?php endif; ?>
+                        <?php endif; ?>
+                        <?php if($post->tags->isNotEmpty()): ?>
                             <div class="row">
                                 <div class="col-xl-12 col-md-12">
                                     <div class="post__tag">
-                                        <h5>{{ __('Related Tags') }}</h5>
+                                        <h5><?php echo e(__('Related Tags')); ?></h5>
                                         <ul>
-                                            @foreach($post->tags as $tag)
+                                            <?php $__currentLoopData = $post->tags; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $tag): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                                 <li>
-                                                    <a href="{{ $tag->url }}">{{ $tag->name }}</a>
+                                                    <a href="<?php echo e($tag->url); ?>"><?php echo e($tag->name); ?></a>
                                                 </li>
-                                            @endforeach
+                                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                         </ul>
                                     </div>
                                 </div>
                             </div>
-                        @endif
+                        <?php endif; ?>
                     </div>
-                    @if(($posts = get_related_posts($post->id, 2)) && $posts->isNotEmpty())
+                    <?php if(($posts = get_related_posts($post->id, 2)) && $posts->isNotEmpty()): ?>
                         <div class="posts_navigation pt-35 pb-100">
                             <div class="row align-items-center">
-                                @if($prevPost = $posts[0])
+                                <?php if($prevPost = $posts[0]): ?>
                                     <div class="col-xl-4 col-md-5">
                                         <div class="prev-link">
-                                            <span>{{ __('Prev Post') }}</span>
-                                            <h4><a href="{{ $prevPost->url }}">{{ $prevPost->name }}</a></h4>
+                                            <span><?php echo e(__('Prev Post')); ?></span>
+                                            <h4><a href="<?php echo e($prevPost->url); ?>"><?php echo e($prevPost->name); ?></a></h4>
                                         </div>
                                     </div>
-                                @endif
-                                @if ($post->firstCategory)
+                                <?php endif; ?>
+                                <?php if($post->firstCategory): ?>
                                     <div class="col-xl-4 col-md-2 text-md-center">
-                                        <a href="{{ $post->firstCategory->url }}" class="blog-filter"><img src="{{ Theme::asset()->url('images/blog-category-icon.png') }}" alt="{{ $post->firstCategory->name }}" /></a>
+                                        <a href="<?php echo e($post->firstCategory->url); ?>" class="blog-filter"><img src="<?php echo e(Theme::asset()->url('images/blog-category-icon.png')); ?>" alt="<?php echo e($post->firstCategory->name); ?>" /></a>
                                     </div>
-                                @endif
-                                @if($nextPost = (isset($posts[1]) ? $posts[1] : null))
+                                <?php endif; ?>
+                                <?php if($nextPost = (isset($posts[1]) ? $posts[1] : null)): ?>
                                     <div class="col-xl-4 col-md-5">
                                         <div class="next-link text-end text-md-right">
-                                            <span>{{ __('Next Post') }}</span>
-                                            <h4><a href="{{ $nextPost->url }}">{{ $nextPost->name }}</a></h4>
+                                            <span><?php echo e(__('Next Post')); ?></span>
+                                            <h4><a href="<?php echo e($nextPost->url); ?>"><?php echo e($nextPost->name); ?></a></h4>
                                         </div>
                                     </div>
-                                @endif
+                                <?php endif; ?>
                             </div>
                         </div>
-                    @else
+                    <?php else: ?>
                         <div class="mb-60"></div>
-                    @endif
+                    <?php endif; ?>
 
                 </div>
             </div>
             <div class="col-sm-12 col-md-12 col-lg-4">
                 <aside class="sidebar-widget">
                     <div class="blog-detail-related">
-                        <div class="blog-detail-related-title">{{ __('CÓ THỂ BẠN QUAN TÂM') }}</div>
-                        @foreach($recentPosts as $recentPost)
+                        <div class="blog-detail-related-title"><?php echo e(__('CÓ THỂ BẠN QUAN TÂM')); ?></div>
+                        <?php $__currentLoopData = $recentPosts; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $recentPost): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                             <div class="blog-detail-related-item">
                                 <div class="blog-detail-related-thumb">
-                                    <a href="{{ $recentPost->url }}">
-                                        @if($recentPost->image)
-                                            <img src="{{ RvMedia::getImageUrl($recentPost->image, 'small') }}" alt="{{ $recentPost->name }}">
-                                        @endif
+                                    <a href="<?php echo e($recentPost->url); ?>">
+                                        <?php if($recentPost->image): ?>
+                                            <img src="<?php echo e(RvMedia::getImageUrl($recentPost->image, 'small')); ?>" alt="<?php echo e($recentPost->name); ?>">
+                                        <?php endif; ?>
                                     </a>
                                 </div>
                                 <div class="blog-detail-related-info">
-                                    <span class="related-date">{{ Theme::formatDate($recentPost->created_at) }}</span>
-                                    <h5><a href="{{ $recentPost->url }}">{{ $recentPost->name }}</a></h5>
+                                    <span class="related-date"><?php echo e(Theme::formatDate($recentPost->created_at)); ?></span>
+                                    <h5><a href="<?php echo e($recentPost->url); ?>"><?php echo e($recentPost->name); ?></a></h5>
                                 </div>
                             </div>
-                        @endforeach
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                     </div>
                 </aside>
             </div>
         </div>
     </div>
 </section>
+<?php /**PATH C:\laragon\www\main\platform\themes/riorelax/views/post.blade.php ENDPATH**/ ?>

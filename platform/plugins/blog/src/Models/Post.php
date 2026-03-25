@@ -34,10 +34,12 @@ class Post extends BaseModel
         'content',
         'image',
         'is_featured',
+        'is_pinned',
         'format_type',
         'status',
         'author_id',
         'author_type',
+        'created_at',
     ];
 
     protected static function booted(): void

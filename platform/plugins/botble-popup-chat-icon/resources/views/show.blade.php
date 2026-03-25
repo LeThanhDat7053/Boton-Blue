@@ -64,6 +64,34 @@
             </div>
         @endif
 
+        @if($telegram = theme_option('chat_btn_telegram'))
+            <div id="telegram-vr" class="button-contact">
+                <a target="_blank" href="{{ $telegram }}">
+                    <div class="phone-vr">
+                        <div class="phone-vr-circle-fill"></div>
+                        <div class="phone-vr-img-circle">
+                            <img data-bb-lazy="true" width="200" height="200" loading="lazy"
+                                 src="/vendor/core/plugins/popup-chat/images/telegram.svg"
+                                 alt="Telegram">
+                        </div>
+                    </div>
+                </a>
+            </div>
+        @endif
+        @if($whatsapp = theme_option('chat_btn_whatsapp'))
+            <div id="whatsapp-vr" class="button-contact">
+                <a target="_blank" href="{{ $whatsapp }}">
+                    <div class="phone-vr">
+                        <div class="phone-vr-circle-fill"></div>
+                        <div class="phone-vr-img-circle">
+                            <img data-bb-lazy="true" width="200" height="200" loading="lazy"
+                                 src="/vendor/core/plugins/popup-chat/images/whatsapp.svg"
+                                 alt="WhatsApp">
+                        </div>
+                    </div>
+                </a>
+            </div>
+        @endif
         @if ($hotline = theme_option('hotline'))
             <div id="phone-vr" class="button-contact">
                 <a href="tel:{{ $hotline }}">
@@ -75,11 +103,6 @@
                                  alt="{{$hotline}}">
                         </div>
                     </div>
-                </a>
-            </div>
-            <div class="phone-bar phone-bar-n">
-                <a href="tel:{{ $hotline }}">
-                    <span class="text-phone">{{$hotline}}</span>
                 </a>
             </div>
         @endif
