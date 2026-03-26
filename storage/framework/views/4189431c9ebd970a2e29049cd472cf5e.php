@@ -1,2 +1,0 @@
-<small <?php echo e($attributes->merge(['class' => 'form-hint'])); ?>><?php echo e($slot); ?></small>
-<?php /**PATH C:\laragon\www\main\platform\core\base\/resources/views/components/form/helper-text.blade.php ENDPATH**/ ?>

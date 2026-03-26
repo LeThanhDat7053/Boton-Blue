@@ -7,13 +7,26 @@
         <div class="row">
             <div class="col-lg-7 col-md-6">
                 <div class="product-detail-image mb-30">
-                    <img src="{{ RvMedia::getImageUrl($product->image) }}" alt="{{ $product->name }}" class="w-100 rounded" style="max-height: 500px; object-fit: cover;">
+                    <img id="main-product-image" src="{{ RvMedia::getImageUrl($product->image) }}" alt="{{ $product->name }}" class="w-100 rounded" style="object-fit: cover;">
                 </div>
                 @if ($product->images && count($product->images) > 0)
-                    <div class="row g-2 mb-30">
+                    <div class="row g-2 mt-3 mb-30">
+                        <div class="col-3">
+                            <img src="{{ RvMedia::getImageUrl($product->image, 'thumb') }}"
+                                 data-full="{{ RvMedia::getImageUrl($product->image) }}"
+                                 alt="{{ $product->name }}"
+                                 class="w-100 rounded product-thumb"
+                                 style="height: 120px; object-fit: cover; cursor: pointer; border: 2px solid #ff6600; transition: border-color 0.2s;"
+                                 onclick="document.getElementById('main-product-image').src=this.dataset.full; document.querySelectorAll('.product-thumb').forEach(function(t){t.style.borderColor='transparent'}); this.style.borderColor='#ff6600';">
+                        </div>
                         @foreach ($product->images as $img)
                             <div class="col-3">
-                                <img src="{{ RvMedia::getImageUrl($img, 'thumb') }}" alt="{{ $product->name }}" class="w-100 rounded" style="height: 100px; object-fit: cover; cursor: pointer;">
+                                <img src="{{ RvMedia::getImageUrl($img, 'thumb') }}"
+                                     data-full="{{ RvMedia::getImageUrl($img) }}"
+                                     alt="{{ $product->name }}"
+                                     class="w-100 rounded product-thumb"
+                                     style="height: 120px; object-fit: cover; cursor: pointer; border: 2px solid transparent; transition: border-color 0.2s;"
+                                     onclick="document.getElementById('main-product-image').src=this.dataset.full; document.querySelectorAll('.product-thumb').forEach(function(t){t.style.borderColor='transparent'}); this.style.borderColor='#ff6600';">
                             </div>
                         @endforeach
                     </div>

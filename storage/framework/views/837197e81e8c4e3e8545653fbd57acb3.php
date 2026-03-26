@@ -1,2 +1,0 @@
-<div <?php echo e($attributes->merge(['class' => 'card-actions'])); ?>><?php echo e($slot); ?></div>
-<?php /**PATH C:\laragon\www\main\platform\core\base\/resources/views/components/card/actions.blade.php ENDPATH**/ ?>
