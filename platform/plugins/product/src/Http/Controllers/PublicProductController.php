@@ -24,22 +24,21 @@ class PublicProductController extends Controller
 
         Theme::breadcrumb()->add(trans('plugins/product::product.name'), route('public.products'));
 
-        $products = Product::query()
-            ->wherePublished()
-            ->with(['category'])
-            ->when($request->input('category_id'), function ($query, $categoryId) {
-                return $query->where('category_id', $categoryId);
-            })
-            ->oldest('order')
-            ->latest()
-            ->paginate(12);
-
         $categories = ProductCategory::query()
             ->wherePublished()
             ->oldest('order')
+            ->with(['products' => function ($query) {
+                $query->wherePublished()->oldest('order')->latest();
+            }])
             ->get();
 
-        return Theme::scope('product.products', compact('products', 'categories'))->render();
+        $allProducts = Product::query()
+            ->wherePublished()
+            ->with(['category'])
+            ->latest()
+            ->get();
+
+        return Theme::scope('product.products', compact('categories', 'allProducts'))->render();
     }
 
     public function getProduct(string $key)

@@ -1,6 +1,6 @@
-@php
+<?php
     Theme::set('pageTitle', trans('plugins/product::product.name'));
-@endphp
+?>
 
 <style>
     /* Product card image */
@@ -160,46 +160,46 @@
 <section class="pt-60 pb-60">
     <div class="container">
 
-        {{-- Category sections --}}
-        @foreach ($categories as $category)
-            @if ($category->products->isNotEmpty())
+        
+        <?php $__currentLoopData = $categories; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $category): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+            <?php if($category->products->isNotEmpty()): ?>
                 <div class="category-section">
-                    <h3 class="category-title">{{ $category->name }}</h3>
+                    <h3 class="category-title"><?php echo e($category->name); ?></h3>
                     <div class="category-products-scroll">
-                        @foreach ($category->products as $product)
+                        <?php $__currentLoopData = $category->products; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $product): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                             <div class="product-scroll-item">
-                                @include(Theme::getThemeNamespace('views.product.partials.product-card'), ['product' => $product])
+                                <?php echo $__env->make(Theme::getThemeNamespace('views.product.partials.product-card'), ['product' => $product], array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?>
                             </div>
-                        @endforeach
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                     </div>
                 </div>
-            @endif
-        @endforeach
+            <?php endif; ?>
+        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 
-        {{-- All products with client-side sorting --}}
-        @if ($allProducts->isNotEmpty())
+        
+        <?php if($allProducts->isNotEmpty()): ?>
             <div class="category-section">
-                <h3 class="category-title">{{ __('Sắp xếp theo') }}</h3>
+                <h3 class="category-title"><?php echo e(__('Sắp xếp theo')); ?></h3>
                 <div class="sort-filters">
-                    <button type="button" class="filter-btn active" data-sort="newest">{{ __('Mới nhất') }}</button>
-                    <button type="button" class="filter-btn" data-sort="best_selling">{{ __('Bán chạy') }}</button>
-                    <button type="button" class="filter-btn" data-sort="on_sale">{{ __('Đang giảm giá') }}</button>
-                    <button type="button" class="filter-btn" data-sort="price_asc">{{ __('Giá tăng dần') }}</button>
-                    <button type="button" class="filter-btn" data-sort="price_desc">{{ __('Giá giảm dần') }}</button>
+                    <button type="button" class="filter-btn active" data-sort="newest"><?php echo e(__('Mới nhất')); ?></button>
+                    <button type="button" class="filter-btn" data-sort="best_selling"><?php echo e(__('Bán chạy')); ?></button>
+                    <button type="button" class="filter-btn" data-sort="on_sale"><?php echo e(__('Đang giảm giá')); ?></button>
+                    <button type="button" class="filter-btn" data-sort="price_asc"><?php echo e(__('Giá tăng dần')); ?></button>
+                    <button type="button" class="filter-btn" data-sort="price_desc"><?php echo e(__('Giá giảm dần')); ?></button>
                 </div>
                 <div class="all-products-grid" id="sortable-products">
-                    @foreach ($allProducts as $product)
+                    <?php $__currentLoopData = $allProducts; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $product): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                         <div class="sortable-item"
-                             data-price="{{ $product->price }}"
-                             data-original-price="{{ $product->original_price ?? 0 }}"
-                             data-sold="{{ $product->total_sold }}"
-                             data-created="{{ $product->created_at->timestamp }}">
-                            @include(Theme::getThemeNamespace('views.product.partials.product-card'), ['product' => $product])
+                             data-price="<?php echo e($product->price); ?>"
+                             data-original-price="<?php echo e($product->original_price ?? 0); ?>"
+                             data-sold="<?php echo e($product->total_sold); ?>"
+                             data-created="<?php echo e($product->created_at->timestamp); ?>">
+                            <?php echo $__env->make(Theme::getThemeNamespace('views.product.partials.product-card'), ['product' => $product], array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?>
                         </div>
-                    @endforeach
+                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                 </div>
             </div>
-        @endif
+        <?php endif; ?>
 
     </div>
 </section>
@@ -254,3 +254,4 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 </script>
+<?php /**PATH C:\laragon\www\main\platform\themes/riorelax/views/product/products.blade.php ENDPATH**/ ?>
